@@ -3,15 +3,12 @@
  */
 class Observer {
   constructor(vm) {
-    this.observer(vm);
-  }
-  observer(vm) {
-    if (!vm.$data || typeof vm.$data !== "object") {
-      return;
-    }
     this.deepProxy(vm);
   }
   deepProxy(data) {
+    if (!data || typeof data !== "object") {
+      return;
+    }
     Object.keys(data).forEach((item) => {
       if (typeof data[item] === "object") {
         this.deepProxy(data[item]);

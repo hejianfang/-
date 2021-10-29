@@ -3,8 +3,7 @@ class Watcher {
     this.vm = vm;
     this.expr = expr;
     this.cb = cb;
-    //获取旧的值
-    this.get();
+    this.value = this.get();
   }
   get() {
     Dep.target = this; //将实例赋给target
@@ -22,6 +21,10 @@ class Watcher {
   update() {
     //值变化时将会触发update，获取新值，旧值已保存在value中
     let newValue = this.getVal(this.vm, this.expr);
-    this.cb(newValue); //调用watch的回调函数
+    if (newValue !== this.value) {
+      this.cb(newValue); //调用watch的回调函数
+    } else {
+      this.cb(this.value); //调用watch的回调函数
+    }
   }
 }

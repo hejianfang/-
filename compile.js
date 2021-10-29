@@ -76,7 +76,7 @@ class Compile{
 }
 
 //编译方法，暂时只实现v-model及{{}}对应的方法
-CompileUtil = {
+let CompileUtil = {
   getVal(vm, expr){
       expr = expr.split('.');
       return expr.reduce((prev,next) => {//vm.$data.a.b
@@ -113,7 +113,7 @@ CompileUtil = {
           if(currentIndex === expr.length-1){
               return prev[next] = value;
           }
-          return prev[next]// TODO
+          return prev[next]
       },vm.$data);
   },
   model(node, vm, expr){//输入框处理
